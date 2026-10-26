@@ -6,7 +6,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   tone?: 'default' | 'danger';
 }
 
-/** Icon-only button that always has an accessible name and a tooltip. */
 export default function IconButton({ label, children, tone = 'default', className = '', ...rest }: Props) {
   const colors =
     tone === 'danger'
