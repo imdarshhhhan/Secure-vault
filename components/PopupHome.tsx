@@ -8,7 +8,6 @@ import SearchBar from './SearchBar';
 
 interface Props {
   credentials: Credential[];
-  /** undefined = still checking, null = unavailable (not a web page / not allowed) */
   currentUrl: string | null | undefined;
   query: string;
   onQueryChange: (q: string) => void;
@@ -19,7 +18,6 @@ interface Props {
   onViewAll: () => void;
 }
 
-/** Screen 5: what you see when you click the toolbar icon. */
 export default function PopupHome(props: Props) {
   const { credentials, currentUrl, query, onQueryChange, onCopy, onEdit, onDelete, onAdd, onViewAll } = props;
   const searching = query.trim().length > 0;

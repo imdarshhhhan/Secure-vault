@@ -1,4 +1,3 @@
-/** Messages that extension pages send to the background service worker. */
 export type BackgroundMessage =
   | { type: 'schedule-autolock'; minutes: number }
   | { type: 'cancel-autolock' }

@@ -8,9 +8,7 @@ import { RefreshIcon } from './icons';
 import PasswordInput from './PasswordInput';
 
 interface Props {
-  /** Present when editing an existing entry. */
   initial?: Credential;
-  /** Optional starting values for a new entry (e.g. the site you are currently on). */
   prefill?: Partial<CredentialInput>;
   onSave: (input: CredentialInput) => Promise<void>;
   onCancel: () => void;
@@ -48,7 +46,6 @@ function Field({
 const inputClass = (invalid: boolean) =>
   `w-full rounded-lg border bg-white px-3 py-2 text-sm ${invalid ? 'border-alarm-700' : 'border-ink-200'}`;
 
-/** Screen 4: add or edit a login. */
 export default function PasswordForm({ initial, prefill, onSave, onCancel }: Props) {
   const [values, setValues] = useState<CredentialInput>({
     siteName: initial?.siteName ?? prefill?.siteName ?? '',

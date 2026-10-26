@@ -13,7 +13,6 @@
  * To save a login for a subdomain, just save that subdomain's URL (e.g. https://gist.github.com).
  */
 
-/** Turns what a person typed into a clean http(s) URL, or null if it isn't a usable web address. */
 export function normalizeUrl(input: string): string | null {
   const trimmed = input.trim();
   if (!trimmed) return null;
@@ -42,7 +41,6 @@ export function getMatchKey(input: string): string | null {
   return host.startsWith('www.') ? host.slice(4) : host;
 }
 
-/** Friendly domain to show in the UI. */
 export function getDisplayDomain(input: string): string {
   return getMatchKey(input) ?? input;
 }

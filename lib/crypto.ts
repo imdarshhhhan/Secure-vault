@@ -1,16 +1,8 @@
 import { DecryptionError } from './errors';
 import type { EncryptedVault } from './types';
 
-/**
- * All cryptography lives in this one file, using only the browser's built-in Web Crypto API.
- *
- *  - Key derivation: PBKDF2-HMAC-SHA256 from the master password + a random 16-byte salt.
- *  - Encryption:     AES-256-GCM (authenticated), fresh random 12-byte IV for every encryption.
- *
- * Nothing here ever logs or stores the master password or the derived key.
- */
 
-// OWASP's 2023 recommendation for PBKDF2-HMAC-SHA256.
+
 export const PBKDF2_ITERATIONS = 600_000;
 const SALT_BYTES = 16;
 const IV_BYTES = 12;
@@ -41,7 +33,7 @@ export function fromBase64(value: string): Uint8Array {
   return bytes;
 }
 
-/** Turns the master password into 32 bytes of key material. Deliberately slow. */
+//Turns the master password into 32 bytes of key material. Deliberately slow.
 export async function deriveKeyBytes(
   masterPassword: string,
   salt: Uint8Array,

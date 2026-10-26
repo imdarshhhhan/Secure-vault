@@ -9,7 +9,6 @@ interface Props {
   onCancel: () => void;
 }
 
-/** Modal confirmation for destructive actions. Escape or "Cancel" closes it; focus starts on Cancel. */
 export default function ConfirmDialog({ open, title, message, confirmLabel, onConfirm, onCancel }: Props) {
   const cancelRef = useRef<HTMLButtonElement>(null);
 

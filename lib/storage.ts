@@ -63,18 +63,15 @@ async function removeItem(area: Area, key: string): Promise<void> {
   else memory[area].delete(key);
 }
 
-// ---- Encrypted vault ----
 export const getEncryptedVault = () => getItem<EncryptedVault>('local', VAULT_KEY);
 export const saveEncryptedVault = (vault: EncryptedVault) => setItem('local', VAULT_KEY, vault);
 
-// ---- Settings (not secret) ----
 export async function getSettings(): Promise<Settings> {
   const stored = await getItem<Partial<Settings>>('local', SETTINGS_KEY);
   return { ...DEFAULT_SETTINGS, ...stored };
 }
 export const saveSettings = (settings: Settings) => setItem('local', SETTINGS_KEY, settings);
 
-// ---- Unlock session (base64 key bytes, RAM only) ----
 export const getSessionKey = () => getItem<string>('session', SESSION_KEY);
 export const setSessionKey = (keyBase64: string) => setItem('session', SESSION_KEY, keyBase64);
 export const clearSessionKey = () => removeItem('session', SESSION_KEY);
@@ -89,7 +86,6 @@ export function onSessionKeyChange(callback: () => void): () => void {
   return () => chrome.storage.onChanged.removeListener(listener);
 }
 
-/** Test helper only. */
 export function resetMemoryStorageForTests(): void {
   memory.local.clear();
   memory.session.clear();

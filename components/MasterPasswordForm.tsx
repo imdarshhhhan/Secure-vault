@@ -10,7 +10,6 @@ interface Props {
   onSubmit: (masterPassword: string) => Promise<void>;
 }
 
-/** Screen 1 (create master password) and Screen 2 (unlock) share this form. */
 export default function MasterPasswordForm({ mode, onSubmit }: Props) {
   const isSetup = mode === 'setup';
   const [password, setPassword] = useState('');

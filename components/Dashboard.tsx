@@ -17,7 +17,6 @@ interface Props {
   onAdd: () => void;
 }
 
-/** Screen 3: the full password dashboard. */
 export default function Dashboard(props: Props) {
   const { credentials, query, onQueryChange, sort, onSortChange, onCopy, onEdit, onDelete, onAdd } = props;
   const shown = useMemo(() => sortCredentials(filterCredentials(credentials, query), sort), [credentials, query, sort]);

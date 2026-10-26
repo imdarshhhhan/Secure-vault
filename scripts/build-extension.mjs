@@ -1,9 +1,4 @@
-// Turns Next.js' static export (./out) into a folder Chrome can load (./extension-dist).
-//
-// Why this step exists: a normal Next.js export isn't a valid Chrome extension because
-//   1. Chrome refuses any file/folder at the extension root whose name starts with "_" (Next uses "_next"),
-//   2. Manifest V3 forbids inline <script> tags, and
-//   3. the manifest, background worker and icons aren't part of a Next.js app.
+
 import { build } from 'esbuild';
 import { cp, mkdir, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -28,10 +23,8 @@ if (!(await exists(out))) throw new Error('Run "next build" first (npm run build
 await rm(dist, { recursive: true, force: true });
 await cp(out, dist, { recursive: true });
 
-// 1. _next -> next
 await rename(path.join(dist, '_next'), path.join(dist, 'next'));
 
-// 2. Rewrite references, and move any inline <script> into its own file (MV3 forbids inline scripts).
 let inlineCount = 0;
 for await (const file of walk(dist)) {
   if (!TEXT_EXTENSIONS.has(path.extname(file))) continue;
@@ -52,12 +45,10 @@ for await (const file of walk(dist)) {
   if (text !== original) await writeFile(file, text);
 }
 
-// 3. Extension-only files.
 await cp(path.join(root, 'extension', 'manifest.json'), path.join(dist, 'manifest.json'));
 await cp(path.join(root, 'extension', 'offscreen.html'), path.join(dist, 'offscreen.html'));
 await cp(path.join(root, 'extension', 'icons'), path.join(dist, 'icons'), { recursive: true });
 
-// 4. Bundle the TypeScript background worker + offscreen helper into plain JS.
 await build({
   entryPoints: {
     background: path.join(root, 'extension', 'background.ts'),
@@ -70,7 +61,6 @@ await build({
   logLevel: 'warning',
 });
 
-// 5. Sanity checks, so problems show up here instead of as a cryptic Chrome error.
 const problems = [];
 const manifest = JSON.parse(await readFile(path.join(dist, 'manifest.json'), 'utf8'));
 const referenced = [

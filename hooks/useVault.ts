@@ -50,7 +50,6 @@ export function useVault() {
     refresh().catch(() => setStatus('locked'));
   }, [refresh]);
 
-  // Stay in sync when the vault is locked/unlocked elsewhere (other popup, full tab, auto-lock alarm).
   useEffect(() => onSessionKeyChange(() => void refresh().catch(() => setStatus('locked'))), [refresh]);
 
   const lock = useCallback(async () => {
@@ -60,7 +59,6 @@ export function useVault() {
     setStatus('locked');
   }, []);
 
-  // Inactivity timer while this page is open. The background alarm covers the case where it is closed.
   useEffect(() => {
     if (status !== 'unlocked') return;
     const minutes = Math.max(1, settings.autoLockMinutes);

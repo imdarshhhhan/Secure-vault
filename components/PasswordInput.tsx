@@ -3,7 +3,6 @@ import type { InputHTMLAttributes } from 'react';
 import { EyeIcon, EyeOffIcon } from './icons';
 
 interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
-  /** Controlled visibility (optional). When omitted the field manages its own show/hide state. */
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   invalid?: boolean;

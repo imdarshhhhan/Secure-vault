@@ -56,7 +56,6 @@ export function validateCredentialInput(input: CredentialInput): ValidationResul
   };
 }
 
-/** Returns an error message, or null when the master password is acceptable. */
 export function validateMasterPassword(password: string, confirm: string): string | null {
   if (password.length < MIN_MASTER_PASSWORD_LENGTH) {
     return `Use at least ${MIN_MASTER_PASSWORD_LENGTH} characters. A short sentence of random words works well.`;

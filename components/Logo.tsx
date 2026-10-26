@@ -1,4 +1,3 @@
-/** A vault door with a keyhole. */
 export default function Logo({ className = 'h-7 w-7' }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} role="img" aria-label="Secure Vault logo">

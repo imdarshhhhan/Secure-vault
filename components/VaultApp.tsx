@@ -16,11 +16,9 @@ import SettingsPanel from './SettingsPanel';
 type View = { name: 'list' } | { name: 'add' } | { name: 'edit'; id: string } | { name: 'settings' };
 
 interface Props {
-  /** "popup" = the small toolbar popup, "full" = the full-page dashboard in its own tab. */
   mode: 'popup' | 'full';
 }
 
-/** Top-level controller shared by the popup and the full-page dashboard. */
 export default function VaultApp({ mode }: Props) {
   const vault = useVault();
   const [view, setView] = useState<View>({ name: 'list' });
@@ -29,7 +27,6 @@ export default function VaultApp({ mode }: Props) {
   const [pendingDelete, setPendingDelete] = useState<Credential | null>(null);
   const [currentUrl, setCurrentUrl] = useState<string | null | undefined>(undefined);
 
-  // Popup only: ask which site the user is on. Needs just the "activeTab" permission.
   useEffect(() => {
     if (mode !== 'popup') return;
     getActiveTabUrl()
@@ -37,7 +34,6 @@ export default function VaultApp({ mode }: Props) {
       .catch(() => setCurrentUrl(null));
   }, [mode]);
 
-  // Whenever the vault locks, go back to the main view and forget the search text.
   useEffect(() => {
     if (vault.status !== 'unlocked') {
       setView({ name: 'list' });
@@ -60,7 +56,6 @@ export default function VaultApp({ mode }: Props) {
     setPendingDelete(null);
   };
 
-  // New entries from the popup start with the site you are on.
   const prefill = (() => {
     if (mode !== 'popup' || !currentUrl) return undefined;
     const normalized = normalizeUrl(currentUrl);
